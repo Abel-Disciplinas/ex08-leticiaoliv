@@ -3,7 +3,6 @@ gr(size=(600,400))
 default(fmt = :png)
 
 function main()
-    # Ler dados.csv
     data = readcsv("dados.csv")
     x = data[:,1]
     y = data[:,2]
@@ -64,7 +63,6 @@ function kfold(x, y; num_folds = 5, max_p=15)
         plot!(1:max_p, EM_treino[fold,:], c=:blue, ms=3, leg=false)
         plot!(1:max_p, EM_teste[fold,:], c=:green, ms=3, leg=false)
     end
-    # Seu código aqui
 
     png("kfold")
 end

@@ -61,5 +61,3 @@ function kfold(x, y; num_folds = 5, max_p=15)
 end
 
 main()
-
-main()

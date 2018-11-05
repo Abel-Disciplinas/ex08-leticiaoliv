@@ -44,6 +44,7 @@ function kfold(x, y; num_folds = 5, max_p=15)
     x, y = x[I], y[I]
     E_treino = zeros(num_folds,max_p)
     E_teste = zeros(num_folds,max_p,)
+    plot()
     for fold = 1:num_folds
         cjto_teste = k * (fold - 1) + 1:k * fold
         cjto_treino = setdiff(1:m,cjto_teste)
@@ -51,12 +52,17 @@ function kfold(x, y; num_folds = 5, max_p=15)
         for p = 1:max_p
             β = regressao_polinomial(x,y,p)
             y_pred = β[1] + sum(β[j + 1] * x.^j for j = 1:p)
-            erro_treino = ((1 / (2 * length(cjto_treino))) * sum(y[i] - y_pred[i] for i = cjto_treino))^2
-            erro_teste = ((1 / (2 * length(cjto_teste))) * sum(y[i] - y_pred[i] for i = cjto_teste))^2
+            erro_treino = ((1 / (2 * length(cjto_treino))) * sum((y[i] - y_pred[i])^2 for i = cjto_treino))
+            erro_teste = ((1 / (2 * length(cjto_teste))) * sum((y[i] - y_pred[i])^2 for i = cjto_teste))
             E_treino[fold,p] = erro_treino
             E_teste[fold,p] = erro_teste
-            println(E_treino)
         end
+        EM_teste = mean(E_teste[fold,:])
+        EM_treino = mean(E_treino[fold,:])
+        plot!(1:max_p, E_treino[fold,:], c=:blue, ms=1, leg=false)
+        plot!(1:max_p, E_teste[fold,:], c=:green, ms=1, leg=false)
+        plot!(1:max_p, EM_treino[fold,:], c=:blue, ms=3, leg=false)
+        plot!(1:max_p, EM_teste[fold,:], c=:green, ms=3, leg=false)
     end
     # Seu código aqui
 

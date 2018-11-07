@@ -9,7 +9,7 @@ function main()
 
     kfold(x, y)
 
-    p = 1 ####### Sua escolha
+    p = 8 
     xlin = linspace(extrema(x)..., 100)
     β = regressao_polinomial(x, y, p)
     ylin = β[1] * ones(100)

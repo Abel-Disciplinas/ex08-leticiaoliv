@@ -20,13 +20,13 @@ function main()
     plot!(xlin, ylin, c=:red, lw=2)
     png("ajuste")
 
-    # Calcule a medida R²
-    #y_pred = ones()
-    #for j = 1:p
-        #y_pred .+= β[j + 1] * x.^j
-    #end
-    #y_med = mean(x)
-    #R2 = 1 - norm(y_pred - y)^2 / norm(y_med - y)^2
+    y_pred = zeros(1,length(x))
+    for j = 1:p
+        y_pred .+= β[j + 1] * x.^j
+    end
+    y_med = mean(x)
+    R2 = 1 - norm(y_pred - y)^2 / norm(y_med - y)^2
+    println(R2)
 end
 
 function regressao_polinomial(x, y, p)
